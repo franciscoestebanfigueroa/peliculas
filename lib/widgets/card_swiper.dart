@@ -7,20 +7,20 @@ class CardSwipper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      color: Colors.orange,
-      height: size.height * 0.5,
-      child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemHeight: size.height * 0.5,
-        itemWidth: double.infinity,
-        itemBuilder: (BuildContext contex, int index) => const FadeInImage(
-          // fit: BoxFit.cover,
+    return Swiper(
+      layout: SwiperLayout.TINDER,
+      itemHeight: size.height * 0.5,
+      itemWidth: double.infinity,
+      itemBuilder: (_, index) => ClipRRect(
+        borderRadius: BorderRadius.circular(60),
+        child: const FadeInImage(
+          fit: BoxFit.cover,
           image: NetworkImage('https://via.placeholder.com/300x400'),
-          placeholder: NetworkImage('https://via.placeholder.com/300x400'),
+          placeholder: NetworkImage(
+              'https://dev.to/placeholders/free-image-placeholder-3f3m'),
         ),
-        itemCount: 10,
       ),
+      itemCount: 10,
     );
   }
 }
