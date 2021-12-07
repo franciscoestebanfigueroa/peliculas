@@ -13,14 +13,13 @@ class CardSwipper extends StatelessWidget {
       itemWidth: double.infinity,
       itemBuilder: (_, index) => ClipRRect(
         borderRadius: BorderRadius.circular(60),
-        child: const FadeInImage(
+        child: FadeInImage(
           fit: BoxFit.cover,
-          image: NetworkImage('https://via.placeholder.com/300x400'),
-          placeholder: NetworkImage(
-              'https://dev.to/placeholders/free-image-placeholder-3f3m'),
+          image: NetworkImage('https://picsum.photos/id/$index/200/300'),
+          placeholder: NetworkImage('https://via.placeholder.com/300x400'),
         ),
       ),
-      itemCount: 10,
+      itemCount: 20,
     );
   }
 }
