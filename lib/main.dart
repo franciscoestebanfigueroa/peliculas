@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widgets/card_swiper.dart';
+import 'package:peliculas/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,17 +9,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: rutas(),
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Peliculas'),
-        ),
-        body: Column(
-          children: [
-            CardSwipper(),
-          ],
-        ),
-      ),
     );
+  }
+
+  Map<String, WidgetBuilder> rutas() {
+    return {
+      '/': (_) => const Home(),
+      '/detalis': (_) {
+        return DetalisScreens();
+      }
+    };
   }
 }

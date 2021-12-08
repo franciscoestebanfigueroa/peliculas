@@ -8,15 +8,18 @@ class CardSwipper extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Swiper(
-      layout: SwiperLayout.TINDER,
+      layout: SwiperLayout.STACK,
       itemHeight: size.height * 0.5,
-      itemWidth: double.infinity,
+      itemWidth: size.width * 0.5,
       itemBuilder: (_, index) => ClipRRect(
         borderRadius: BorderRadius.circular(60),
-        child: FadeInImage(
-          fit: BoxFit.cover,
-          image: NetworkImage('https://picsum.photos/id/$index/200/300'),
-          placeholder: NetworkImage('https://via.placeholder.com/300x400'),
+        child: GestureDetector(
+          onDoubleTap: () => Navigator.pushNamed(context, '/detalis'),
+          child: FadeInImage(
+            fit: BoxFit.cover,
+            image: NetworkImage('https://picsum.photos/id/$index/200'),
+            placeholder: const AssetImage('assets/no-image.jpg'),
+          ),
         ),
       ),
       itemCount: 20,
