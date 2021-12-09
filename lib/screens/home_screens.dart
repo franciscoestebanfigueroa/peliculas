@@ -21,7 +21,8 @@ class Home extends StatelessWidget {
           Expanded(
               flex: 2,
               child: Container(
-                color: Colors.orange,
+                child: const SwipperInferior(),
+                // color: Colors.orange,
               ))
         ],
       ),

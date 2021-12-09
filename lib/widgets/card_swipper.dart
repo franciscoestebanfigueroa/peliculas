@@ -14,7 +14,8 @@ class CardSwipper extends StatelessWidget {
       itemBuilder: (_, index) => ClipRRect(
         borderRadius: BorderRadius.circular(60),
         child: GestureDetector(
-          onDoubleTap: () => Navigator.pushNamed(context, '/detalis'),
+          onDoubleTap: () => Navigator.pushNamed(context, '/detalis',
+              arguments: 'card-swipper'),
           child: FadeInImage(
             fit: BoxFit.cover,
             image: NetworkImage('https://picsum.photos/id/$index/200'),
