@@ -13,8 +13,8 @@ class DetalisScreens extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // const _AppBarSliver(),
-          _AppbarSliverSafeArea(
+          const _AppBarSliver(),
+          /* _AppbarSliverSafeArea(
               child: SliverList(
                   delegate: SliverChildListDelegate([
                 Container(
@@ -22,7 +22,7 @@ class DetalisScreens extends StatelessWidget {
                     height: 40,
                     child: const Text('MiSuper Claseeeeeee'))
               ])),
-              context: context),
+              context: context),*/
           //SliverList(
           //  delegate: MisliverDelegate(),
           //),
@@ -47,7 +47,8 @@ class DetalisScreens extends StatelessWidget {
                           height: 180,
                           width: 120,
                           image: NetworkImage(
-                              'https://via.placeholder.com/250x250'),
+                            'https://picsum.photos/id/77/200',
+                          ),
                           placeholder: AssetImage('assets/no-image.jpg'),
                         ),
                       ),
@@ -107,6 +108,10 @@ class DetalisScreens extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(data),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(data),
                 )
               ],
             ),
@@ -130,8 +135,8 @@ class _AppBarSliver extends StatelessWidget {
       floating: false, //apartece cuandp bajo, no necesita entar en cero
       expandedHeight: 200,
       flexibleSpace: FlexibleSpaceBar(
-        background: Image.asset(
-          'assets/no-image.jpg',
+        background: Image.network(
+          'https://picsum.photos/id/77/200',
           fit: BoxFit.cover,
         ),
         collapseMode: CollapseMode.pin,

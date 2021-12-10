@@ -3,6 +3,15 @@ import 'package:peliculas/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
+class AppProvider extends StatelessWidget {
+  const AppProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Mut;
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
