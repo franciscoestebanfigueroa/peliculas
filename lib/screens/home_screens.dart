@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/providers/movie_provider.dart';
 import 'package:peliculas/widgets/widgers.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -8,6 +10,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dataprovide = Provider.of<MovieProvider>(context).getmovis();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
