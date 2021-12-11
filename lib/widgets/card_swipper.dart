@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:peliculas/providers/movie_provider.dart';
 
 class CardSwipper extends StatelessWidget {
-  const CardSwipper({Key? key}) : super(key: key);
+  final MovieProvider dataprovider;
+  CardSwipper({Key? key, required this.dataprovider}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,8 @@ class CardSwipper extends StatelessWidget {
               arguments: 'card-swipper'),
           child: FadeInImage(
             fit: BoxFit.cover,
-            image: NetworkImage('https://picsum.photos/id/$index/200'),
+            image: NetworkImage(
+                'https://image.tmdb.org/t/p/w500${dataprovider.lista_peliculas[index].posterpath}'),
             placeholder: const AssetImage('assets/no-image.jpg'),
           ),
         ),

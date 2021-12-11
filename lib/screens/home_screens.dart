@@ -10,21 +10,21 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataprovide = Provider.of<MovieProvider>(context).getmovis();
+    final dataprovide = Provider.of<MovieProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
       body: Column(
         children: [
-          const Expanded(
+          Expanded(
             flex: 3,
-            child: CardSwipper(),
+            child: CardSwipper(dataprovider: dataprovide),
           ),
           Expanded(
               flex: 2,
               child: Container(
-                child: const SwipperInferior(),
+                child: SwipperInferior(dataprovider: dataprovide),
                 // color: Colors.orange,
               ))
         ],

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/providers/movie_provider.dart';
 
 class SwipperInferior extends StatelessWidget {
-  const SwipperInferior({Key? key}) : super(key: key);
+  final MovieProvider dataprovider;
+  const SwipperInferior({
+    Key? key,
+    required this.dataprovider,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,14 @@ class SwipperInferior extends StatelessWidget {
                 child: FadeInImage(
                     fit: BoxFit.cover,
                     placeholder: const AssetImage('assets/no-image.jpg'),
-                    image: NetworkImage('https://picsum.photos/id/$index/200')),
+                    image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w300${dataprovider.lista_peliculas[index].posterpath}')),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'super peliiiicjlkjjkljflajdflajlsfj',
+                '${dataprovider.lista_peliculas[index].title}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
