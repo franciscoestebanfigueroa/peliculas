@@ -16,10 +16,11 @@ class SwipperInferior extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text('Peliculas'),
+          child: Text('Populares'),
         ),
         Expanded(
           child: ListView.builder(
+              itemCount: dataprovider.listapopulares.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => catalogoimg(index)),
         ),
@@ -29,7 +30,7 @@ class SwipperInferior extends StatelessWidget {
 
   Widget catalogoimg(int index) {
     return SizedBox(
-      width: 180,
+      width: 100,
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -42,13 +43,13 @@ class SwipperInferior extends StatelessWidget {
                     fit: BoxFit.cover,
                     placeholder: const AssetImage('assets/no-image.jpg'),
                     image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w300${dataprovider.lista_peliculas[index].posterpath}')),
+                        'https://image.tmdb.org/t/p/w300${dataprovider.listapopulares[index].posterpath}')),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                '${dataprovider.lista_peliculas[index].title}',
+                '${dataprovider.listapopulares[index].title}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

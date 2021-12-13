@@ -13,7 +13,7 @@ class AppProvider extends StatelessWidget {
     return MultiProvider(
       child: const MyApp(),
       providers: [
-        ChangeNotifierProvider(lazy: true, create: (_) => MovieProvider()),
+        ChangeNotifierProvider(lazy: false, create: (_) => MovieProvider()),
       ],
     );
   }

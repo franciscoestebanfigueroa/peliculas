@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
     final dataprovide = Provider.of<MovieProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Las Mejores Pelicuas de Esteban y Lara'),
       ),
       body: Column(
         children: [

@@ -7,13 +7,13 @@ class DetalisScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     String data =
         'Un párrafo, también llamado parágrafo (del griego παράγραφος [parágraphos], y este de παρα, «próximo, semejante», y γραφος, «escritura»), es una unidad comunicativa formada por un conjunto de oraciones secuenciales que trata un mismo tema. Está compuesto por un conjunto de oraciones que tienen cierta unidad temática o que, sin tenerla, se enuncian juntas. Es un componente del texto que en su aspecto externo comienza con una mayúscula y termina en un punto y aparte. Comprende varias oraciones relacionadas sobre el mismo subtema; una de ellas expresa la idea principal.';
-    final String setingDetalles =
+    final String modaldata =
         ModalRoute.of(context)?.settings.arguments.toString() ?? 'sin data';
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const _AppBarSliver(),
+          _AppBarSliver(modal: modaldata),
           /* _AppbarSliverSafeArea(
               child: SliverList(
                   delegate: SliverChildListDelegate([
@@ -42,12 +42,12 @@ class DetalisScreens extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: const FadeInImage(
+                        child: FadeInImage(
                           fit: BoxFit.cover,
                           height: 180,
                           width: 120,
                           image: NetworkImage(
-                            'https://picsum.photos/id/77/200',
+                            'https://image.tmdb.org/t/p/w300${modaldata}',
                           ),
                           placeholder: AssetImage('assets/no-image.jpg'),
                         ),
@@ -123,8 +123,11 @@ class DetalisScreens extends StatelessWidget {
 }
 
 class _AppBarSliver extends StatelessWidget {
-  const _AppBarSliver({
+  final String modal;
+
+  _AppBarSliver({
     Key? key,
+    required this.modal,
   }) : super(key: key);
 
   @override
@@ -136,7 +139,7 @@ class _AppBarSliver extends StatelessWidget {
       expandedHeight: 200,
       flexibleSpace: FlexibleSpaceBar(
         background: Image.network(
-          'https://picsum.photos/id/77/200',
+          'https://image.tmdb.org/t/p/w300$modal',
           fit: BoxFit.cover,
         ),
         collapseMode: CollapseMode.pin,
