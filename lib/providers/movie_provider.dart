@@ -9,10 +9,11 @@ import 'package:peliculas/model/model.dart';
 class MovieProvider extends ChangeNotifier {
   final List<Movies> _litadepeliculas = [];
   final List<Movies> _listapopular = [];
+  int _page = 0;
 
   MovieProvider() {
     getmovisnuevos();
-    //getmoviespopular();
+    getmoviespopular();
     // getheadboard('1', '/3/movie/popular');
   }
 
@@ -35,6 +36,9 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
+  List<Movies> get listapopulares => _listapopular;
+  List<Movies> get listapeliculas => _litadepeliculas;
+
   void getmovisnuevos() async {
     gethttp.Response conectar = await getheadboard('1', '/3/movie/now_playing');
     var decode = jsonDecode(conectar.body);
@@ -47,44 +51,19 @@ class MovieProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Movies> get listapeliculas => _litadepeliculas;
-  List<Movies> get listapopulares => _listapopular;
-
   void getmoviespopular() async {
-    Map<String, String> queryparametros = {
-      'api_key': '96bef80d8420636832c209204c0a7bf4',
-      'language': 'es-Es',
-      'page': '1',
-    };
-
-    String baseurl = 'api.themoviedb.org';
     String cuerpo = '/3/movie/popular';
+    _page++;
 
-    var url =
-        //Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
+    //Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
+    var estado = await getheadboard(_page.toString(), cuerpo);
 
-        Uri.https(baseurl, cuerpo, queryparametros);
+    Map<String, dynamic> body = jsonDecode(estado.body);
 
-    var estado = await gethttp.get(url);
+    final modelPopular = ModelPopular.frommap(body);
 
-    if (estado.statusCode != 200) {
-      //  print(estado.statusCode);
-    } else {
-      //print('Conexion exitosa ${estado.statusCode}');
-      Map<String, dynamic> body = jsonDecode(estado.body);
-      // print(body);
-
-      final modelPopular = ModelPopular.frommap(body);
-
-      for (var element in modelPopular.results) {
-        _listapopular.add(element);
-      }
-
-      for (var item in _listapopular) {
-        // print(item.title);
-      }
-
-      _listapopular.map((e) => print('${e.title}'));
+    for (var element in modelPopular.results) {
+      _listapopular.add(element);
     }
 
     notifyListeners();
