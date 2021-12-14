@@ -12,15 +12,32 @@ class MovieProvider extends ChangeNotifier {
 
   MovieProvider() {
     getmovisnuevos();
-    getmoviespopular();
+    //getmoviespopular();
+    // getheadboard('1', '/3/movie/popular');
+  }
+
+  Future<gethttp.Response> getheadboard(String page, String cuerpo) async {
+    Map<String, String> queryparametros = {
+      'api_key': '96bef80d8420636832c209204c0a7bf4',
+      'language': 'es-Es',
+      'page': page,
+    };
+
+    var url = Uri.https('api.themoviedb.org', cuerpo, queryparametros);
+    var response = await gethttp.get(url);
+
+    if (response.statusCode != 200) {
+      print('error ${response.statusCode}');
+      return response;
+    } else {
+      print('conectado ${response.statusCode}');
+      return response;
+    }
   }
 
   void getmovisnuevos() async {
-    String url =
-        'https://api.themoviedb.org/3/movie/now_playing?api_key=96bef80d8420636832c209204c0a7bf4&language=en-Es&page=1&region=es';
-    //  print('en getmovies');
-    var response = await gethttp.get(Uri.parse(url));
-    var decode = jsonDecode(response.body);
+    gethttp.Response conectar = await getheadboard('1', '/3/movie/now_playing');
+    var decode = jsonDecode(conectar.body);
 
     final xx = ModelMovies.fromjson(decode);
     for (var element in xx.result) {

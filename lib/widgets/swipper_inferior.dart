@@ -21,7 +21,7 @@ class SwipperInferior extends StatelessWidget {
         Expanded(
           child: ListView.builder(
               itemCount: dataprovider.listapopulares.length,
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => catalogoimg(index)),
         ),
       ],
@@ -30,6 +30,7 @@ class SwipperInferior extends StatelessWidget {
 
   Widget catalogoimg(int index) {
     return SizedBox(
+      height: 300,
       width: 100,
       child: SingleChildScrollView(
         child: Column(
