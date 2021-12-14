@@ -8,7 +8,7 @@ import 'package:peliculas/model/model.dart';
 
 class MovieProvider extends ChangeNotifier {
   final List<Movies> _litadepeliculas = [];
-  final List<Movies> _listapopular = [];
+  List<Movies> _listapopular = [];
   int _page = 0;
 
   MovieProvider() {
@@ -62,10 +62,9 @@ class MovieProvider extends ChangeNotifier {
 
     final modelPopular = ModelPopular.frommap(body);
 
-    for (var element in modelPopular.results) {
-      _listapopular.add(element);
-    }
-
+    //_listapopular = modelPopular.results;
+    _listapopular = [..._listapopular, ...modelPopular.results];
+    // concatena desectructurando por que cambia los page
     notifyListeners();
   }
 }
