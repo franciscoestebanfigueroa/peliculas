@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/model/model.dart';
+import 'package:provider/provider.dart';
 
 class DetalisScreens extends StatelessWidget {
   DetalisScreens({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String data =
-        'Un párrafo, también llamado parágrafo (del griego παράγραφος [parágraphos], y este de παρα, «próximo, semejante», y γραφος, «escritura»), es una unidad comunicativa formada por un conjunto de oraciones secuenciales que trata un mismo tema. Está compuesto por un conjunto de oraciones que tienen cierta unidad temática o que, sin tenerla, se enuncian juntas. Es un componente del texto que en su aspecto externo comienza con una mayúscula y termina en un punto y aparte. Comprende varias oraciones relacionadas sobre el mismo subtema; una de ellas expresa la idea principal.';
-    final String modaldata =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'sin data';
+    var modaldata = ModalRoute.of(context)!.settings.arguments as Movies;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _AppBarSliver(modal: modaldata),
+          _AppBarSliver(modal: modaldata.posterpath),
           /* _AppbarSliverSafeArea(
               child: SliverList(
                   delegate: SliverChildListDelegate([
@@ -32,7 +31,7 @@ class DetalisScreens extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Titulos',
+                    'Detalle de La Pelicula..',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -47,9 +46,9 @@ class DetalisScreens extends StatelessWidget {
                           height: 180,
                           width: 120,
                           image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w300${modaldata}',
+                            'https://image.tmdb.org/t/p/w300${modaldata.posterpath}',
                           ),
-                          placeholder: AssetImage('assets/no-image.jpg'),
+                          placeholder: const AssetImage('assets/no-image.jpg'),
                         ),
                       ),
                     ),
@@ -57,14 +56,14 @@ class DetalisScreens extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
-                            SizedBox(
+                          children: [
+                            const SizedBox(
                               width: 30,
                             ),
                             SizedBox(
                               width: 100,
                               child: Text(
-                                'Los datos que no se ',
+                                modaldata.title,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                               ),
@@ -75,18 +74,18 @@ class DetalisScreens extends StatelessWidget {
                           height: 2,
                         ),
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.star_border,
                               size: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             SizedBox(
                               width: 100,
                               child: Text(
-                                'Los datos que no se ',
+                                modaldata.originaltitle,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                               ),
@@ -99,20 +98,8 @@ class DetalisScreens extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(data),
+                  child: Text(modaldata.overview),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(data),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(data),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(data),
-                )
               ],
             ),
           ),
@@ -125,7 +112,7 @@ class DetalisScreens extends StatelessWidget {
 class _AppBarSliver extends StatelessWidget {
   final String modal;
 
-  _AppBarSliver({
+  const _AppBarSliver({
     Key? key,
     required this.modal,
   }) : super(key: key);
@@ -163,7 +150,8 @@ class MisliverDelegate extends SliverChildDelegate {
 }
 
 class _AppbarSliverSafeArea extends StatelessWidget {
-  _AppbarSliverSafeArea({Key? key, required this.child, required this.context})
+  const _AppbarSliverSafeArea(
+      {Key? key, required this.child, required this.context})
       : super(key: key);
   final Widget child;
   final BuildContext context;

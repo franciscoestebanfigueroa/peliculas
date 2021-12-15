@@ -29,8 +29,7 @@ class CardSwipper extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: GestureDetector(
           onDoubleTap: () => Navigator.pushNamed(context, '/detalis',
-              arguments:
-                  dataprovider.listapeliculas[index].posterpath.toString()),
+              arguments: dataprovider.listapeliculas[index]),
           child: FadeInImage(
             fit: BoxFit.cover,
             image: NetworkImage(
