@@ -65,13 +65,19 @@ class _SwipperInferiorState extends State<SwipperInferior> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: FadeInImage(
-                    fit: BoxFit.cover,
-                    placeholder: const AssetImage('assets/no-image.jpg'),
-                    image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w300${widget.dataprovider.listapopulares[index].posterpath}')),
+              child: GestureDetector(
+                onTap: () => {
+                  Navigator.pushNamed(context, '/detalis',
+                      arguments: widget.dataprovider.listapopulares[index])
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: const AssetImage('assets/no-image.jpg'),
+                      image: NetworkImage(
+                          'https://image.tmdb.org/t/p/w300${widget.dataprovider.listapopulares[index].posterpath}')),
+                ),
               ),
             ),
             Padding(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/model/model.dart';
-import 'package:provider/provider.dart';
 
 class DetalisScreens extends StatelessWidget {
   DetalisScreens({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class DetalisScreens extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _AppBarSliver(modal: modaldata.posterpath),
+          _AppBarSliver(modal: modaldata.backdroppath!),
           /* _AppbarSliverSafeArea(
               child: SliverList(
                   delegate: SliverChildListDelegate([
@@ -98,7 +97,7 @@ class DetalisScreens extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(modaldata.overview),
+                  child: Text(modaldata.overview!),
                 ),
               ],
             ),

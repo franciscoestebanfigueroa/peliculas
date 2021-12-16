@@ -1,11 +1,13 @@
 class Movies {
-  String title;
-  String originaltitle;
-  String posterpath;
-  String overview;
+  final String title;
+  final String originaltitle;
+  final String posterpath;
+  final String? overview;
+  final String? backdroppath;
 
   Movies(
-      {required this.overview,
+      {this.backdroppath,
+      this.overview,
       required this.title,
       required this.originaltitle,
       required this.posterpath});
@@ -14,5 +16,6 @@ class Movies {
       : title = map['title'],
         originaltitle = map['original_title'],
         posterpath = map['poster_path'],
-        overview = map['overview'];
+        overview = map['overview'] ?? 'No hay datos',
+        backdroppath = map['backdrop_path'];
 }
