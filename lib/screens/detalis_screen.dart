@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/model/model.dart';
+import 'package:peliculas/providers/movie_provider.dart';
+import 'package:peliculas/widgets/widgers.dart';
+import 'package:provider/provider.dart';
 
 class DetalisScreens extends StatelessWidget {
   DetalisScreens({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var modaldata = ModalRoute.of(context)!.settings.arguments as Movies;
-
+    Movies modaldata = ModalRoute.of(context)!.settings.arguments as Movies;
+    final provideractores = Provider.of<MovieProvider>(context);
+    var builder;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _AppBarSliver(modal: modaldata.backdroppath!),
+          _AppBarSliver(modal: modaldata),
           /* _AppbarSliverSafeArea(
               child: SliverList(
                   delegate: SliverChildListDelegate([
@@ -99,6 +103,7 @@ class DetalisScreens extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(modaldata.overview!),
                 ),
+                SwipperActores()
               ],
             ),
           ),
@@ -109,7 +114,7 @@ class DetalisScreens extends StatelessWidget {
 }
 
 class _AppBarSliver extends StatelessWidget {
-  final String modal;
+  final Movies modal;
 
   const _AppBarSliver({
     Key? key,
@@ -125,12 +130,12 @@ class _AppBarSliver extends StatelessWidget {
       expandedHeight: 200,
       flexibleSpace: FlexibleSpaceBar(
         background: Image.network(
-          'https://image.tmdb.org/t/p/w300$modal',
+          'https://image.tmdb.org/t/p/w300${modal.backdroppath}',
           fit: BoxFit.cover,
         ),
         collapseMode: CollapseMode.pin,
         centerTitle: true,
-        title: const Text('Peliculas de Esteban y Lara'),
+        title: Text(modal.title),
       ),
     );
   }

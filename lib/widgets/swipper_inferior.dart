@@ -4,7 +4,7 @@ import 'package:peliculas/providers/movie_provider.dart';
 class SwipperInferior extends StatefulWidget {
   final MovieProvider dataprovider;
 
-  SwipperInferior({
+  const SwipperInferior({
     Key? key,
     required this.dataprovider,
   }) : super(key: key);
