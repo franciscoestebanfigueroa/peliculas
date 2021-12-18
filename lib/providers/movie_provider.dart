@@ -42,7 +42,7 @@ class MovieProvider extends ChangeNotifier {
   List<Movies> get listapopulares => _listapopular;
   List<Movies> get listapeliculas => _litadepeliculas;
 
-  Future getactores(int idmovie) async {
+  Future<List<Actores>> getactores(int idmovie) async {
     gethttp.Response getactores =
         await getheadboard('1', '/3/movie/$idmovie/credits');
     Map<String, dynamic> decodegetactores = jsonDecode(getactores.body);
@@ -52,7 +52,7 @@ class MovieProvider extends ChangeNotifier {
     var t = mapaactores[idmovie]!.map((e) => {e.id});
     List tt = t.toList();
     print(tt);
-    return mapaactores[idmovie];
+    return cast.listaactores;
   }
 
   void getmovisnuevos() async {
