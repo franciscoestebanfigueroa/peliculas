@@ -13,43 +13,63 @@ class SwipperActores extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<MovieProvider>(context);
-    return Container(
-      width: double.infinity,
-      height: 200,
-      color: Colors.amber,
-      child: FutureBuilder<List<Actores>>(
-        future: data.getactores(idmovie),
-        builder: (context, AsyncSnapshot<List<Actores>> snapshot) {
-          return Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 120),
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        placeholder: const AssetImage('assets/no-image.jpg'),
-                        //image: AssetImage('assets/loading.gif')
-                        image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w300${snapshot.data![0].profilepath}'),
-                      ),
+
+    return FutureBuilder<List<Actores>>(
+      future: data.getactores(idmovie),
+      builder: (context, AsyncSnapshot<List<Actores>> snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return SizedBox(
+            width: double.infinity,
+            // color: Colors.orange,
+            height: 160,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(minWidth: 100, maxWidth: 100),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: FadeInImage(
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  const AssetImage('assets/loading.gif'),
+                              imageErrorBuilder: (context, error, stackTrace) =>
+                                  Center(
+                                      child:
+                                          Image.asset('assets/no-image.jpg')),
+                              image: NetworkImage(
+                                  'https://image.tmdb.org/t/p/w300${snapshot.data![index].profilepath}'),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          snapshot.data![index].name.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
+                    //  color: Colors.red,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                //Text(snapshot.data!.name.toString()),
-              ],
+                );
+              },
             ),
-            color: Colors.red,
           );
-        },
-      ),
+        }
+      },
     );
   }
 }

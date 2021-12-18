@@ -17,7 +17,7 @@ class MovieProvider extends ChangeNotifier {
   MovieProvider() {
     getmovisnuevos();
     getmoviespopular();
-    getactores(580459);
+    // getactores(580459);
   }
 
   Future<gethttp.Response> getheadboard(String page, String cuerpo) async {
@@ -43,16 +43,21 @@ class MovieProvider extends ChangeNotifier {
   List<Movies> get listapeliculas => _litadepeliculas;
 
   Future<List<Actores>> getactores(int idmovie) async {
-    gethttp.Response getactores =
-        await getheadboard('1', '/3/movie/$idmovie/credits');
-    Map<String, dynamic> decodegetactores = jsonDecode(getactores.body);
-    CastMovies cast = CastMovies.fromjson(decodegetactores);
-    mapaactores[cast.id] = cast.listaactores;
+    if (mapaactores.containsKey(idmovie)) {
+      print('no consulta en servidor, el dato esta en cache');
+      return mapaactores[idmovie]!;
+    } else {
+      gethttp.Response getactores =
+          await getheadboard('1', '/3/movie/$idmovie/credits');
+      Map<String, dynamic> decodegetactores = jsonDecode(getactores.body);
+      CastMovies cast = CastMovies.fromjson(decodegetactores);
+      mapaactores[cast.id] = cast.listaactores;
 
-    var t = mapaactores[idmovie]!.map((e) => {e.id});
-    List tt = t.toList();
-    print(tt);
-    return cast.listaactores;
+      var t = mapaactores[idmovie]!.map((e) => {e.id});
+      List tt = t.toList();
+      print(tt);
+      return cast.listaactores;
+    }
   }
 
   void getmovisnuevos() async {

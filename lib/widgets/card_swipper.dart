@@ -25,7 +25,7 @@ class _CardSwipperState extends State<CardSwipper> {
     return Swiper(
       indicatorLayout: PageIndicatorLayout.SLIDE,
       autoplay: _autoplay,
-      loop: false,
+
       //duration: ,
       curve: Curves.decelerate,
       layout: SwiperLayout.STACK,
