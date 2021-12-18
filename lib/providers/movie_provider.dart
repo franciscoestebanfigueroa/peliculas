@@ -55,7 +55,7 @@ class MovieProvider extends ChangeNotifier {
 
       var t = mapaactores[idmovie]!.map((e) => {e.id});
       List tt = t.toList();
-      print(tt);
+      // print(tt);
       return cast.listaactores;
     }
   }
