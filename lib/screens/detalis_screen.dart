@@ -31,11 +31,11 @@ class DetalisScreens extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Detalle de La Pelicula..',
-                    style: TextStyle(fontSize: 20),
+                    'Detalle de La Pelicula..${modaldata.id}',
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
                 Row(
@@ -103,7 +103,7 @@ class DetalisScreens extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(modaldata.overview!),
                 ),
-                SwipperActores()
+                SwipperActores(idmovie: modaldata.id)
               ],
             ),
           ),

@@ -4,17 +4,20 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as gethttp;
+import 'package:peliculas/model/class_actores.dart';
 import 'package:peliculas/model/model.dart';
 
 class MovieProvider extends ChangeNotifier {
   final List<Movies> _litadepeliculas = [];
   List<Movies> _listapopular = [];
+  List<Actores> listadoactores = [];
+  Map<int, List<Actores>> mapaactores = {};
   int _page = 0;
 
   MovieProvider() {
     getmovisnuevos();
     getmoviespopular();
-    // getheadboard('1', '/3/movie/popular');
+    getactores(580459);
   }
 
   Future<gethttp.Response> getheadboard(String page, String cuerpo) async {
@@ -38,6 +41,19 @@ class MovieProvider extends ChangeNotifier {
 
   List<Movies> get listapopulares => _listapopular;
   List<Movies> get listapeliculas => _litadepeliculas;
+
+  Future getactores(int idmovie) async {
+    gethttp.Response getactores =
+        await getheadboard('1', '/3/movie/$idmovie/credits');
+    Map<String, dynamic> decodegetactores = jsonDecode(getactores.body);
+    CastMovies cast = CastMovies.fromjson(decodegetactores);
+    mapaactores[cast.id] = cast.listaactores;
+
+    var t = mapaactores[idmovie]!.map((e) => {e.id});
+    List tt = t.toList();
+    print(tt);
+    return mapaactores[idmovie];
+  }
 
   void getmovisnuevos() async {
     gethttp.Response conectar = await getheadboard('1', '/3/movie/now_playing');

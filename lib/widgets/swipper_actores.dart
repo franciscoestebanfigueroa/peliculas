@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SwipperActores extends StatelessWidget {
+  final int? idmovie;
   const SwipperActores({
     Key? key,
+    this.idmovie,
   }) : super(key: key);
 
   @override

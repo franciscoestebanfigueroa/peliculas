@@ -4,8 +4,9 @@ class Movies {
   final String posterpath;
   final String? overview;
   final String? backdroppath;
+  final int id;
 
-  Movies(
+  Movies(this.id,
       {this.backdroppath,
       this.overview,
       required this.title,
@@ -17,5 +18,6 @@ class Movies {
         originaltitle = map['original_title'],
         posterpath = map['poster_path'],
         overview = map['overview'] ?? 'No hay datos',
-        backdroppath = map['backdrop_path'];
+        backdroppath = map['backdrop_path'],
+        id = map['id'];
 }
