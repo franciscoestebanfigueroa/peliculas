@@ -11,12 +11,14 @@ class MovieProvider extends ChangeNotifier {
   final List<Movies> _litadepeliculas = [];
   List<Movies> _listapopular = [];
   List<Actores> listadoactores = [];
+  List<Movies> listabusqueda = [];
   Map<int, List<Actores>> mapaactores = {};
   int _page = 0;
 
   MovieProvider() {
     getmovisnuevos();
     getmoviespopular();
+    // busqueda('batman');
     // getactores(580459);
   }
 
@@ -44,7 +46,7 @@ class MovieProvider extends ChangeNotifier {
 
   Future<List<Actores>> getactores(int idmovie) async {
     if (mapaactores.containsKey(idmovie)) {
-      print('no consulta en servidor, el dato esta en cache');
+//      print('no consulta en servidor, el dato esta en cache');
       return mapaactores[idmovie]!;
     } else {
       gethttp.Response getactores =
@@ -87,6 +89,31 @@ class MovieProvider extends ChangeNotifier {
     _listapopular = [..._listapopular, ...modelPopular.results];
     // concatena desectructurando por que cambia los page
     notifyListeners();
+  }
+
+  void getbusqueda(String buscar) async {
+    String authority = 'api.themoviedb.org';
+    String unencodedPath = '/3/search/movie';
+
+    Map<String, dynamic> pquery = {
+      'api_key': '96bef80d8420636832c209204c0a7bf4',
+      'page': '1',
+      'language': 'en-US',
+      'query': '',
+      'include_adult': 'false',
+    };
+    pquery['query'] = buscar;
+    //print(pquery);
+
+    var url = Uri.http(authority, unencodedPath, pquery);
+    var response = await gethttp.get(url);
+    Map<String, dynamic> json = jsonDecode(response.body);
+    //print(json);
+
+    var x = ModelMovies.fromjson(json);
+    listabusqueda = x.result;
+    var pt = listabusqueda.map((e) => e.title);
+    print(pt);
   }
 }
 

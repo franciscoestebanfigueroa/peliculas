@@ -62,11 +62,13 @@ class Busqueda extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(child: Text(value));
+    var buscar = Provider.of<MovieProvider>(context);
+    buscar.getbusqueda(query);
+    return Center(child: Text(query));
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Center(child: Text(query));
+    return Center(child: Text(''));
   }
 }
