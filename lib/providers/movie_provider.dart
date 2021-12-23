@@ -1,5 +1,6 @@
 // https://api.themoviedb.org/3/movie/550?api_key=96bef80d8420636832c209204c0a7bf4
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -91,17 +92,18 @@ class MovieProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getbusqueda(String buscar) async {
+  Future<List<Movies>> getbusqueda(String buscar) async {
     String authority = 'api.themoviedb.org';
     String unencodedPath = '/3/search/movie';
 
-    Map<String, dynamic> pquery = {
+    Map<String, String> pquery = {
       'api_key': '96bef80d8420636832c209204c0a7bf4',
       'page': '1',
       'language': 'en-US',
       'query': '',
       'include_adult': 'false',
     };
+
     pquery['query'] = buscar;
     //print(pquery);
 
@@ -114,6 +116,18 @@ class MovieProvider extends ChangeNotifier {
     listabusqueda = x.result;
     var pt = listabusqueda.map((e) => e.title);
     print(pt);
+
+    return x.result;
+  }
+
+  final StreamController<List<Movies>> _streamController =
+      StreamController.broadcast(); //creamos un controler
+  Stream<List<Movies>> get busquedastream =>
+      _streamController.stream; //transmite
+
+  void ingresoquery(String query) {
+    getbusqueda(query);
+    _streamController.add(listabusqueda);
   }
 }
 

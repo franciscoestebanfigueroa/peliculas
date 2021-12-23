@@ -1,6 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
+import 'package:peliculas/screens/search.dart';
 import 'package:peliculas/providers/movie_provider.dart';
 import 'package:peliculas/widgets/widgers.dart';
 import 'package:provider/provider.dart';
@@ -38,37 +38,5 @@ class Home extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class Busqueda extends SearchDelegate {
-  late String value = '';
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    value = 'consultando';
-    return [const Text('Action')];
-  }
-
-  @override
-  String get searchFieldLabel => 'Buscar Peliculas';
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    const Text(
-      'Leading',
-      style: TextStyle(color: Colors.black),
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    var buscar = Provider.of<MovieProvider>(context);
-    buscar.getbusqueda(query);
-    return Center(child: Text(query));
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Center(child: Text(''));
   }
 }
