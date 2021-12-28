@@ -35,7 +35,8 @@ class Busqueda extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     var buscar = Provider.of<MovieProvider>(context);
-    buscar.ingresoquery(query);
+    //buscar.ingresoquery(query);
+    buscar.deboncerfuncion(query);
     return StreamBuilder(
         stream: buscar.busquedastream,
         builder: (context, AsyncSnapshot<List<Movies>> snapshot) {
@@ -44,29 +45,54 @@ class Busqueda extends SearchDelegate {
                 scrollDirection: Axis.vertical,
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/detalis',
-                          arguments: snapshot.data![index]);
-                    },
-                    contentPadding: const EdgeInsets.all(1),
-                    title: Text(
-                      snapshot.data![index].title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    leading: FadeInImage(
-                      //fit: BoxFit.cover,
-
-                      placeholder: const AssetImage('assets/no-image.jpg'),
-                      image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w400${snapshot.data![index].posterpath}'),
-                    ),
+                  return MiListTitle(
+                    snapshot: snapshot.data![index],
                   );
                 });
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Image.asset('assets/no-image.jpg'));
           }
         });
+  }
+}
+
+class MiListTitle extends StatelessWidget {
+  final Movies snapshot;
+
+  const MiListTitle({
+    Key? key,
+    required this.snapshot,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        Navigator.pushNamed(context, '/detalis', arguments: snapshot);
+      },
+      contentPadding: const EdgeInsets.all(1),
+      title: Text(
+        snapshot.title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: FadeInImage(
+        fit: BoxFit.cover,
+        placeholder: const AssetImage('assets/no-image.jpg'),
+        image: NetworkImage(
+            'https://image.tmdb.org/t/p/w400${snapshot.posterpath}'),
+      ),
+    );
+  }
+}
+
+class MiListTitle2 extends StatelessWidget {
+  final Movies snapshot;
+
+  const MiListTitle2({Key? key, required this.snapshot}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

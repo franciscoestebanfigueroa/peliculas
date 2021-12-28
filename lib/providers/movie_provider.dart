@@ -5,22 +5,33 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as gethttp;
+import 'package:peliculas/debouncer/debouncer.dart';
 import 'package:peliculas/model/class_actores.dart';
 import 'package:peliculas/model/model.dart';
 
 class MovieProvider extends ChangeNotifier {
   final List<Movies> _litadepeliculas = [];
+
   List<Movies> _listapopular = [];
   List<Actores> listadoactores = [];
   List<Movies> listabusqueda = [];
   Map<int, List<Actores>> mapaactores = {};
   int _page = 0;
-
+  Debouncer debouncer = Debouncer(duration: const Duration(milliseconds: 300));
   MovieProvider() {
     getmovisnuevos();
     getmoviespopular();
+
     // busqueda('batman');
     // getactores(580459);
+  }
+
+  void deboncerfuncion(String query) {
+    debouncer.value = '';
+    debouncer.onValue = (x) async {
+      print('respuesta del debounce $x');
+      ingresoquery(query);
+    };
   }
 
   Future<gethttp.Response> getheadboard(String page, String cuerpo) async {
@@ -56,8 +67,8 @@ class MovieProvider extends ChangeNotifier {
       CastMovies cast = CastMovies.fromjson(decodegetactores);
       mapaactores[cast.id] = cast.listaactores;
 
-      var t = mapaactores[idmovie]!.map((e) => {e.id});
-      List tt = t.toList();
+      // var t = mapaactores[idmovie]!.map((e) => {e.id});
+      // List tt = t.toList();
       // print(tt);
       return cast.listaactores;
     }
